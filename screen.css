@@ -76,3 +76,9 @@
   display: block;
   width: 100%;
 }
+
+.twitter-share-button {
+  position: absolute!important;
+  top: 10px;
+  left: 10px;
+}
