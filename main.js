@@ -177,7 +177,7 @@ importpattern.id = 'importpattern';
 importpattern.className = 'button';
 importpattern.innerText = 'Import pattern';
 importpattern.onclick = function() {
-  var input = prompt("Copy to clipboard with Ctrl+C or right-click", "");
+  var input = prompt("Paste from clipboard with Ctrl+V or right-click", "");
   var cells = input.split(",");
   
   for(var i = 0; i < cells.length; i++){
