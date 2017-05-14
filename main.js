@@ -155,6 +155,39 @@ randomize.onclick = function() {
 
 content.appendChild(randomize);
 
+var exportpattern = document.createElement('button');
+exportpattern.id = 'exportpattern';
+exportpattern.className = 'button';
+exportpattern.innerText = 'Export pattern';
+exportpattern.onclick = function() {
+  var cells = document.getElementsByClassName('alive');
+  var pattern = [];
+  for(var i = 0; i < cells.length; i++){
+    var cellid = cells[i].id;
+     if (/\d+/.test(cellid)) {
+        pattern.push(cellid);
+      }
+  }
+  prompt("Copy to clipboard with Ctrl+C or right-click", pattern.toString());
+}
+content.appendChild(exportpattern);
+
+var importpattern = document.createElement('button');
+importpattern.id = 'importpattern';
+importpattern.className = 'button';
+importpattern.innerText = 'Import pattern';
+importpattern.onclick = function() {
+  var input = prompt("Copy to clipboard with Ctrl+C or right-click", "");
+  var cells = input.split(",");
+  
+  for(var i = 0; i < cells.length; i++){
+     if (/\d+/.test(cells[i])) {
+      data[cells[i]] = true;
+    }
+  }
+}
+content.appendChild(importpattern);
+
 window.requestAnimationFrame(function render(time) {
   for (var y = 0; y < rows; y++) {
     for (var x = 0; x < columns; x++) {
