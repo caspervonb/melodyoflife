@@ -141,6 +141,7 @@ play.onclick = function() {
   if (master == null) {
     master = audio.createGain();
     master.gain.value = 0.25
+    master.connect(audio.destination);
   }
 
   pause = !pause;
