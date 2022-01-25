@@ -1,7 +1,7 @@
 var columns = 20, rows = 20;
 var data = new Array(columns * rows);
 
-var pause = false;
+var pause = true;
 var passive = false;
 var index = 0;
 var delay = 125;
