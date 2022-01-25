@@ -54,7 +54,7 @@ window.setTimeout(function update() {
   window.setTimeout(update, delay);
 }, delay);
 
-var audio = new AudioContext();
+var audio = null; // Created on user gesture
 var master = audio.createGain();
 master.gain.value = 0.25
 
@@ -135,6 +135,10 @@ play.id = 'play';
 play.className = 'button play';
 play.innerText = pause ? 'Play' : 'Pause';
 play.onclick = function() {
+  if (audio == null) {
+    audio = new AudioContext();
+  }
+
   pause = !pause;
   play.innerText = pause ? 'Play' : 'Pause';
 };
