@@ -57,40 +57,8 @@ window.setTimeout(function update() {
 var audio = null; // Created on user gesture
 var master = null;
 
-master.connect(audio.destination);
-
-var frequencies = (function() {
-  var map = [1 - 22];
-  var offsets = [2, 2, 3, 2, 3];
-
-  for (var i = 0; i < 4; i++) {
-    offsets.forEach(function(n) {
-      map.push(map[map.length - 1] + n);
-    });
-  }
-
-  map = map.slice(0, 20);
-
-  return map.map(function(i) {
-    return 440 * Math.pow(1.05946309436, i - 1);
-  }).reverse();
-}());
-
-var tracks = frequencies.map(function(f) {
-  var gain = audio.createGain();
-  gain.gain.value = 0;
-
-  var oscillator = audio.createOscillator();
-  oscillator.type = 'sine';
-  oscillator.frequency.value = f;
-
-  oscillator.connect(gain);
-  gain.connect(master);
-
-  oscillator.start();
-
-  return gain;
-});
+var frequencies = null;
+var tracks = null;
 
 window.setTimeout(function process(value) {
   if (value != index) {
@@ -143,7 +111,40 @@ play.onclick = function() {
     master.gain.value = 0.25
     master.connect(audio.destination);
   }
+  
+  frequencies = (function() {
+    var map = [1 - 22];
+    var offsets = [2, 2, 3, 2, 3];
 
+    for (var i = 0; i < 4; i++) {
+      offsets.forEach(function(n) {
+        map.push(map[map.length - 1] + n);
+      });
+    }
+
+    map = map.slice(0, 20);
+
+    return map.map(function(i) {
+      return 440 * Math.pow(1.05946309436, i - 1);
+    }).reverse();
+  }());
+
+  var tracks = frequencies.map(function(f) {
+    var gain = audio.createGain();
+    gain.gain.value = 0;
+
+    var oscillator = audio.createOscillator();
+    oscillator.type = 'sine';
+    oscillator.frequency.value = f;
+
+    oscillator.connect(gain);
+    gain.connect(master);
+
+    oscillator.start();
+
+    return gain;
+  });
+  
   pause = !pause;
   play.innerText = pause ? 'Play' : 'Pause';
 };
