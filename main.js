@@ -165,6 +165,20 @@ randomize.onclick = function() {
 
 content.appendChild(randomize);
 
+var reset = document.createElement('button');
+reset.id = 'reset';
+reset.className = 'button reset';
+reset.innerText = 'Reset';
+reset.onclick = function() {
+  for (var y = 0; y < rows; y++) {
+    for (var x = 0; x < columns; x++) {
+      data[(x * columns) + y] = 0;
+    }
+  }
+};
+
+content.appendChild(reset);
+
 window.requestAnimationFrame(function render(time) {
   for (var y = 0; y < rows; y++) {
     for (var x = 0; x < columns; x++) {
